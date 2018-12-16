@@ -23,14 +23,15 @@ function main() : void {
   const viewportWidth = 32;
   const viewportHeight = 16;
   const gravity = 120;
+  const scale = 2;
 
   const canvas = <HTMLCanvasElement> document.getElementById("game");
 
-  canvas.width = viewportWidth * tileSize;
-  canvas.height = viewportHeight * tileSize;
+  canvas.width = viewportWidth * tileSize * scale;
+  canvas.height = viewportHeight * tileSize * scale;
 
   const model =
-    new Model(canvas, tileSize, viewportWidth, viewportHeight, gravity);
+    new Model(canvas, tileSize, viewportWidth, viewportHeight, scale, gravity);
 
   let fixedSystems =
     [new Gravity(), new Input(), new Movement()];

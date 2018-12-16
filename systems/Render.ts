@@ -11,10 +11,10 @@ class Render implements FixedSystem {
     ) {
       w.model.ctx.fillStyle = w.appearance[e].color;
       w.model.ctx.fillRect(
-        w.position[e].x * w.model.tileSize,
-        w.position[e].y * w.model.tileSize,
-        w.model.tileSize,
-        w.model.tileSize
+        w.position[e].x * w.model.tileSize * w.model.scale,
+        w.position[e].y * w.model.tileSize * w.model.scale,
+        w.model.tileSize * w.model.scale,
+        w.model.tileSize * w.model.scale
       );
     }
   }

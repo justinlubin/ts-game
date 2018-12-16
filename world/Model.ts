@@ -7,6 +7,7 @@ class Model {
     readonly tileSize: number,
     readonly viewWidth: number,
     readonly viewHeight: number,
+    readonly scale: number,
     readonly gravity: number
   ) {
     this.keys = new Set<number>();
