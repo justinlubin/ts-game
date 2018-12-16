@@ -10,15 +10,16 @@ class Input implements FixedSystem {
     ) {
       let xVel = 0;
       if (w.model.keys.has(Key.RIGHT)) {
-        xVel += 10;
+        xVel += w.physics[e].walkSpeed;
       }
       if (w.model.keys.has(Key.LEFT)) {
-        xVel -= 10;
+        xVel -= w.physics[e].walkSpeed;
       }
       w.physics[e].velocity = new Vec(xVel, w.physics[e].velocity.y);
 
       if (w.model.keys.has(Key.Z) && w.physics[e].grounded) {
-        w.physics[e].velocity = w.physics[e].velocity.add(new Vec(0, -20));
+        w.physics[e].velocity =
+          w.physics[e].velocity.add(new Vec(0, -w.physics[e].jumpSpeed));
       }
     }
   }

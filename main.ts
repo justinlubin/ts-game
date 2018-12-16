@@ -22,7 +22,7 @@ function main() : void {
   const tileSize = 16;
   const viewportWidth = 32;
   const viewportHeight = 16;
-  const gravity = 50;
+  const gravity = 120;
 
   const canvas = <HTMLCanvasElement> document.getElementById("game");
 

@@ -8,7 +8,8 @@ class Player {
     ]);
 
     world.position[e] = pos;
-    world.physics[e] = new Physics(Vec.zero(), Vec.zero(), false);
+    world.physics[e] =
+      new Physics(Vec.zero(), Vec.zero(), false, 15, 30);
     world.appearance[e] = new Appearance("blue");
 
     return e;
