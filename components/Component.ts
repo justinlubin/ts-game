@@ -1,0 +1,3 @@
+enum Component {
+  POSITION, PHYSICS, APPEARANCE, USER_CONTROL
+}

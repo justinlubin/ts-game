@@ -3,6 +3,6 @@
     "target": "ES6",
     "strict": true,
     "noImplicitReturns": true,
-    "outFile": "main.js"
+    "outFile": "out/main.js"
   }
 }

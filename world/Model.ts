@@ -1,7 +1,6 @@
 class Model {
   readonly keys : Set<Key>
   readonly ctx : CanvasRenderingContext2D;
-  readonly player : Entity;
 
   constructor(
     readonly canvas: HTMLCanvasElement,
@@ -21,12 +20,5 @@ class Model {
     );
 
     this.ctx = canvas.getContext("2d")!;
-
-    this.player = {
-      pos: new Vec(1, 1),
-      vel: Vec.zero(),
-      acc: Vec.zero(),
-      grounded: false
-    }
   }
 }
