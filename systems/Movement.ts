@@ -8,17 +8,18 @@ class Movement implements FixedSystem {
       e != null;
       e = w.next(this.requirements, e)
     ) {
-      w.physics[e].velocity =
-        w.physics[e].velocity.add(w.physics[e].acceleration.scale(dt));
-      w.position[e] =
-        w.position[e].add(w.physics[e].velocity.scale(dt));
+      const t = w.transform[e];
+      const p = w.physics[e];
 
-      if(w.position[e].y + 1 >= w.model.viewHeight){
-        w.physics[e].velocity = new Vec(w.physics[e].velocity.x, 0);
-        w.position[e] = new Vec(w.position[e].x, w.model.viewHeight - 1);
-        w.physics[e].grounded = true;
+      p.velocity = p.velocity.add(p.acceleration.scale(dt));
+      t.position = t.position.add(p.velocity.scale(dt));
+
+      if(t.position.y + 1 >= w.model.viewHeight){
+        p.velocity = new Vec(p.velocity.x, 0);
+        t.position = new Vec(t.position.x, w.model.viewHeight - 1);
+        p.grounded = true;
       } else {
-        w.physics[e].grounded = false;
+        p.grounded = false;
       }
     }
   }

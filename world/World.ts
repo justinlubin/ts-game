@@ -3,7 +3,7 @@ class World {
 
   readonly mask: Array<Set<Component>>;
 
-  readonly position: Pos[];
+  readonly transform: Transform[];
   readonly physics: Physics[];
   readonly appearance: Appearance[];
 
@@ -21,7 +21,7 @@ class World {
       this.mask[i] = new Set<Component>();
     }
 
-    this.position = new Array<Pos>(maxEntities);
+    this.transform = new Array<Transform>(maxEntities);
     this.physics = new Array<Physics>(maxEntities);
     this.appearance = new Array<Appearance>(maxEntities);
 

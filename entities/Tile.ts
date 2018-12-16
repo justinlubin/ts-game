@@ -1,11 +1,11 @@
 class Tile {
-  static create(world: World, pos: Vec, kind: Tile.Kind) {
+  static create(world: World, position: Vec, kind: Tile.Kind) {
     let e: number = world.createEntityWith([
       Component.POSITION,
       Component.APPEARANCE
     ]);
 
-    world.position[e] = pos;
+    world.transform[e] = new Transform(position);
     world.appearance[e] = new Appearance(Tile.color(kind));
 
     return e;
