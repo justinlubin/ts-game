@@ -1,5 +1,5 @@
 class Loop {
-  private id: number = 0;
+  private continueLooping: boolean = true;
 
   constructor(
     readonly fixedTimestep: number,
@@ -12,6 +12,10 @@ class Loop {
     let unsimulatedTime : number = 0;
 
     const func = (currentTimeMs: number) => {
+      if (this.continueLooping) {
+        window.requestAnimationFrame(func);
+      }
+
       const currentTime = currentTimeMs / 1000;
       const deltaTime = previousTime == null ? 0 : currentTime - previousTime;
       unsimulatedTime += deltaTime;
@@ -23,14 +27,12 @@ class Loop {
       }
 
       this.dynamicUpdate();
-
-      this.id = window.requestAnimationFrame(func);
     }
 
-    this.id = window.requestAnimationFrame(func);
+    window.requestAnimationFrame(func);
   }
 
   stop() {
-    window.cancelAnimationFrame(this.id);
+    this.continueLooping = false;
   }
 }

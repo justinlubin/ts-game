@@ -4,6 +4,7 @@ class Model {
 
   constructor(
     readonly canvas: HTMLCanvasElement,
+    readonly tilemap: Tilemap,
     readonly tileSize: number,
     readonly viewWidth: number,
     readonly viewHeight: number,

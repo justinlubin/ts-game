@@ -13,7 +13,7 @@ class World {
     readonly model: Model,
     readonly maxEntities: number,
     readonly fixedSystems: FixedSystem[],
-    readonly dynamicSystems: DynamicSystem[]
+    readonly dynamicSystems: DynamicSystem[],
   ) {
     this.mask = new Array<Set<Component>>(maxEntities);
 

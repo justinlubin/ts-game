@@ -1,4 +1,4 @@
-const level : Array<Array<Tile.Kind>> = [
+const level: TileKind[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -30,25 +30,24 @@ function main() : void {
   canvas.width = viewportWidth * tileSize * scale;
   canvas.height = viewportHeight * tileSize * scale;
 
-  const model =
-    new Model(canvas, tileSize, viewportWidth, viewportHeight, scale, gravity);
+  const tilemap =
+    new Tilemap(level);
 
-  let fixedSystems =
+  const model =
+    new Model(
+      canvas, tilemap, tileSize, viewportWidth, viewportHeight, scale, gravity
+    );
+
+  const fixedSystems =
     [new Gravity(), new Input(), new Movement()];
 
-  let dynamicSystems =
+  const dynamicSystems =
     [new Render()];
 
   const world =
     new World(model, 10000, fixedSystems, dynamicSystems);
 
   w = world;
-
-  level.forEach((row, r) =>
-    row.forEach((kind, c) =>
-      Tile.create(world, new Vec(c, r), kind)
-    )
-  );
 
   Player.create(world, new Vec(1, 1));
 
