@@ -56,7 +56,7 @@ class World {
 
   next(cs: Set<Component>, e: number): number | null {
     for (let eNext = e + 1; eNext < this.entityBound; eNext++) {
-      if (subset(cs, this.mask[eNext])) {
+      if (Utils.subset(cs, this.mask[eNext])) {
         return eNext;
       }
     }
