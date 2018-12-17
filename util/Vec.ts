@@ -1,5 +1,5 @@
 class Vec {
-  constructor(readonly x: number, readonly y: number) {}
+  constructor(public x: number, public y: number) {}
 
   static zero() : Vec {
     return new Vec(0, 0);

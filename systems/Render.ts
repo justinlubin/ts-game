@@ -1,6 +1,6 @@
 class Render implements FixedSystem {
   readonly requirements =
-    new Set<Component>([Component.POSITION, Component.APPEARANCE]);
+    new Set<Component>([Component.BOUNDING_BOX, Component.APPEARANCE]);
 
   update(w: World): void {
     // Clear
@@ -9,7 +9,7 @@ class Render implements FixedSystem {
     // Tilemap
     for (let y = 0; y < w.model.tilemap.tiles.length; y++) {
       for (let x = 0; x < w.model.tilemap.tiles[y].length; x++) {
-        w.model.ctx.fillStyle = w.model.tilemap.color(x, y);
+        w.model.ctx.fillStyle = w.model.tilemap.color(new Vec(x, y));
         w.model.ctx.fillRect(
           x * w.model.tileSize * w.model.scale,
           y * w.model.tileSize * w.model.scale,
@@ -20,12 +20,8 @@ class Render implements FixedSystem {
     }
 
     // Entities
-    for (
-      let e = w.first(this.requirements);
-      e != null;
-      e = w.next(this.requirements, e)
-    ) {
-      const t = w.transform[e];
+    w.forall(this.requirements, e => {
+      const t = w.boundingBox[e];
       const a = w.appearance[e];
 
       w.model.ctx.fillStyle = a.color;
@@ -35,6 +31,6 @@ class Render implements FixedSystem {
         w.model.tileSize * w.model.scale,
         w.model.tileSize * w.model.scale
       );
-    }
+    });
   }
 }

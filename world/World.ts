@@ -3,7 +3,7 @@ class World {
 
   readonly mask: Array<Set<Component>>;
 
-  readonly transform: Transform[];
+  readonly boundingBox: BoundingBox[];
   readonly physics: Physics[];
   readonly appearance: Appearance[];
 
@@ -21,7 +21,7 @@ class World {
       this.mask[i] = new Set<Component>();
     }
 
-    this.transform = new Array<Transform>(maxEntities);
+    this.boundingBox = new Array<BoundingBox>(maxEntities);
     this.physics = new Array<Physics>(maxEntities);
     this.appearance = new Array<Appearance>(maxEntities);
 
@@ -65,5 +65,11 @@ class World {
 
   first(cs: Set<Component>): number | null {
     return this.next(cs, -1);
+  }
+
+  forall(cs: Set<Component>, func: (e: number) => void): void {
+    for (let e = this.first(cs); e != null; e = this.next(cs, e)) {
+      func(e);
+    }
   }
 }

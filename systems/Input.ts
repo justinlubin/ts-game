@@ -3,11 +3,7 @@ class Input implements FixedSystem {
     new Set<Component>([Component.PHYSICS, Component.USER_CONTROL]);
 
   update(w: World, dt: number): void {
-    for (
-      let e = w.first(this.requirements);
-      e != null;
-      e = w.next(this.requirements, e)
-    ) {
+    w.forall(this.requirements, e => {
       let xVel = 0;
       if (w.model.keys.has(Key.RIGHT)) {
         xVel += w.physics[e].walkSpeed;
@@ -21,6 +17,6 @@ class Input implements FixedSystem {
         w.physics[e].velocity =
           w.physics[e].velocity.add(new Vec(0, -w.physics[e].jumpSpeed));
       }
-    }
+    });
   }
 }

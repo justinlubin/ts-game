@@ -38,8 +38,14 @@ function main() : void {
       canvas, tilemap, tileSize, viewportWidth, viewportHeight, scale, gravity
     );
 
-  const fixedSystems =
-    [new Gravity(), new Input(), new Movement()];
+  const fixedSystems = [
+    new Gravity(),
+    new Input(),
+    new Movement(true, false),
+    new TilemapCollision(true, false),
+    new Movement(false, true),
+    new TilemapCollision(false, true),
+  ];
 
   const dynamicSystems =
     [new Render()];

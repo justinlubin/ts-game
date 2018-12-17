@@ -1,26 +1,23 @@
 class Movement implements FixedSystem {
   readonly requirements =
-    new Set<Component>([Component.POSITION, Component.PHYSICS]);
+    new Set<Component>([Component.BOUNDING_BOX, Component.PHYSICS]);
+
+  constructor(public horizontal: boolean, public vertical: boolean) {}
 
   update(w: World, dt: number): void {
-    for (
-      let e = w.first(this.requirements);
-      e != null;
-      e = w.next(this.requirements, e)
-    ) {
-      const t = w.transform[e];
+    w.forall(this.requirements, e => {
+      const bb = w.boundingBox[e];
       const p = w.physics[e];
 
-      p.velocity = p.velocity.add(p.acceleration.scale(dt));
-      t.position = t.position.add(p.velocity.scale(dt));
-
-      if(t.position.y + 1 >= w.model.viewHeight){
-        p.velocity = new Vec(p.velocity.x, 0);
-        t.position = new Vec(t.position.x, w.model.viewHeight - 1);
-        p.grounded = true;
-      } else {
-        p.grounded = false;
+      if (this.horizontal) {
+        p.velocity.x += p.acceleration.x * dt;
+        bb.position.x += p.velocity.x * dt;
       }
-    }
+
+      if (this.vertical) {
+        p.velocity.y += p.acceleration.y * dt;
+        bb.position.y += p.velocity.y * dt;
+      }
+    });
   }
 }
