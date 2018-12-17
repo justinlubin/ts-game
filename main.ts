@@ -18,28 +18,16 @@ const level: TileKind[][] = [
 ]
 
 let w = null; // for debugging
+
 function main() : void {
-  const tileSize = 16;
-  const viewportWidth = 32;
-  const viewportHeight = 16;
-  const gravity = 120;
-  const scale = 2;
-
-  const canvas = <HTMLCanvasElement> document.getElementById("game");
-
-  canvas.width = viewportWidth * tileSize * scale;
-  canvas.height = viewportHeight * tileSize * scale;
-
-  const tilemap =
-    new Tilemap(level);
-
   const model =
-    new Model(
-      canvas, tilemap, tileSize, viewportWidth, viewportHeight, scale, gravity
-    );
+    new Model(new Tilemap(level));
+
+  const maxEntities =
+    1000
 
   const fixedSystems = [
-    new Gravity(),
+    new Gravity(120),
     new Input(),
     new Movement(true, false),
     new TilemapCollision(true, false),
@@ -47,11 +35,12 @@ function main() : void {
     new TilemapCollision(false, true),
   ];
 
-  const dynamicSystems =
-    [new Render()];
+  const dynamicSystems = [
+    new Render("game", 32, 16, 16, 2)
+  ];
 
   const world =
-    new World(model, 10000, fixedSystems, dynamicSystems);
+    new World(model, maxEntities, fixedSystems, dynamicSystems);
 
   w = world;
 

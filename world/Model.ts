@@ -1,15 +1,8 @@
 class Model {
   readonly keys : Set<Key>
-  readonly ctx : CanvasRenderingContext2D;
 
   constructor(
-    readonly canvas: HTMLCanvasElement,
     readonly tilemap: Tilemap,
-    readonly tileSize: number,
-    readonly viewWidth: number,
-    readonly viewHeight: number,
-    readonly scale: number,
-    readonly gravity: number
   ) {
     this.keys = new Set<number>();
 
@@ -20,7 +13,5 @@ class Model {
     window.addEventListener("keyup",
       (event : KeyboardEvent) => this.keys.delete(event.keyCode)
     );
-
-    this.ctx = canvas.getContext("2d")!;
   }
 }

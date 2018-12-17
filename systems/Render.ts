@@ -2,19 +2,35 @@ class Render implements FixedSystem {
   readonly requirements =
     new Set<Component>([Component.BOUNDING_BOX, Component.APPEARANCE]);
 
+  readonly canvas: HTMLCanvasElement;
+  readonly ctx : CanvasRenderingContext2D;
+
+  constructor(
+    public canvasId: string,
+    public viewportWidth: number,
+    public viewportHeight: number,
+    public tileSize:  number,
+    public scale: number
+  ) {
+    this.canvas = <HTMLCanvasElement> document.getElementById(canvasId);
+    this.canvas.width = viewportWidth * tileSize * scale;
+    this.canvas.height = viewportHeight * tileSize * scale;
+    this.ctx = this.canvas.getContext("2d")!;
+  }
+
   update(w: World): void {
     // Clear
-    w.model.ctx.clearRect(0, 0, w.model.canvas.width, w.model.canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // Tilemap
     for (let y = 0; y < w.model.tilemap.tiles.length; y++) {
       for (let x = 0; x < w.model.tilemap.tiles[y].length; x++) {
-        w.model.ctx.fillStyle = w.model.tilemap.color(new Vec(x, y));
-        w.model.ctx.fillRect(
-          x * w.model.tileSize * w.model.scale,
-          y * w.model.tileSize * w.model.scale,
-          w.model.tileSize * w.model.scale,
-          w.model.tileSize * w.model.scale
+        this.ctx.fillStyle = w.model.tilemap.color(new Vec(x, y));
+        this.ctx.fillRect(
+          x * this.tileSize * this.scale,
+          y * this.tileSize * this.scale,
+          this.tileSize * this.scale,
+          this.tileSize * this.scale
         );
       }
     }
@@ -24,12 +40,12 @@ class Render implements FixedSystem {
       const bb = w.boundingBox[e];
       const a = w.appearance[e];
 
-      w.model.ctx.fillStyle = a.color;
-      w.model.ctx.fillRect(
-        bb.x * w.model.tileSize * w.model.scale,
-        bb.y * w.model.tileSize * w.model.scale,
-        w.model.tileSize * w.model.scale,
-        w.model.tileSize * w.model.scale
+      this.ctx.fillStyle = a.color;
+      this.ctx.fillRect(
+        bb.x * this.tileSize * this.scale,
+        bb.y * this.tileSize * this.scale,
+        this.tileSize * this.scale,
+        this.tileSize * this.scale
       );
     });
   }
