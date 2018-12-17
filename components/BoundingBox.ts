@@ -1,15 +1,16 @@
 class BoundingBox {
   constructor(
-    public position: Vec,
+    public x: number,
+    public y: number,
     public width: number,
     public height: number
   ) {}
 
   right() {
-    return this.position.x + this.width;
+    return this.x + this.width;
   }
 
   bottom() {
-    return this.position.y + this.height;
+    return this.y + this.height;
   }
 }

@@ -11,12 +11,12 @@ class Movement implements FixedSystem {
 
       if (this.horizontal) {
         p.velocity.x += p.acceleration.x * dt;
-        bb.position.x += p.velocity.x * dt;
+        bb.x += p.velocity.x * dt;
       }
 
       if (this.vertical) {
         p.velocity.y += p.acceleration.y * dt;
-        bb.position.y += p.velocity.y * dt;
+        bb.y += p.velocity.y * dt;
       }
     });
   }

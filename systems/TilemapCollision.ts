@@ -26,9 +26,9 @@ class TilemapCollision implements FixedSystem {
   collides(tilemap: Tilemap, bb: BoundingBox, vel: Vec) {
     for (let modifier of [0.01, 0.5, 0.99]) {
       if (this.horizontal) {
-        const position = new Vec(-1, bb.position.y + bb.height * modifier);
+        const position = new Vec(-1, bb.y + bb.height * modifier);
         if (vel.x < 0) {
-          position.x = bb.position.x;
+          position.x = bb.x;
         } else if (vel.x > 0) {
           position.x = bb.right();
         }
@@ -40,9 +40,9 @@ class TilemapCollision implements FixedSystem {
       }
 
       if (this.vertical) {
-        const position = new Vec(bb.position.x + bb.width * modifier, -1);
+        const position = new Vec(bb.x + bb.width * modifier, -1);
         if (vel.y < 0) {
-          position.y = bb.position.y;
+          position.y = bb.y;
         } else if (vel.y > 0) {
           position.y = bb.bottom();
         }
@@ -62,18 +62,18 @@ class TilemapCollision implements FixedSystem {
 
     if (this.horizontal) {
       if (vel.x < 0) {
-        bb.position.x = Math.ceil(bb.position.x);
+        bb.x = Math.ceil(bb.x);
       } else if (vel.x > 0) {
-        bb.position.x = Math.floor(bb.right()) - bb.width;
+        bb.x = Math.floor(bb.right()) - bb.width;
       }
       vel.x = 0;
     }
 
     if (this.vertical) {
       if (vel.y < 0) {
-        bb.position.y = Math.ceil(bb.position.y);
+        bb.y = Math.ceil(bb.y);
       } else if (vel.y > 0) {
-        bb.position.y = Math.floor(bb.bottom()) - bb.height;
+        bb.y = Math.floor(bb.bottom()) - bb.height;
         phys.grounded = true;
       }
       vel.y = 0;

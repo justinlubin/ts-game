@@ -21,13 +21,13 @@ class Render implements FixedSystem {
 
     // Entities
     w.forall(this.requirements, e => {
-      const t = w.boundingBox[e];
+      const bb = w.boundingBox[e];
       const a = w.appearance[e];
 
       w.model.ctx.fillStyle = a.color;
       w.model.ctx.fillRect(
-        t.position.x * w.model.tileSize * w.model.scale,
-        t.position.y * w.model.tileSize * w.model.scale,
+        bb.x * w.model.tileSize * w.model.scale,
+        bb.y * w.model.tileSize * w.model.scale,
         w.model.tileSize * w.model.scale,
         w.model.tileSize * w.model.scale
       );
